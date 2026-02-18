@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
-class ChartBar extends StatelessWidget {
-  final double spendingAmount;
-  final double spendingPctOfTotal;
-  final IconData icon;
+class BarraGrafica extends StatelessWidget {
+  final double montoGasto;
+  final double porcentajeDelTotal; // En este caso será porcentaje del máximo
+  final IconData icono;
 
-  const ChartBar(this.spendingAmount, this.spendingPctOfTotal, this.icon, {super.key});
+  const BarraGrafica(this.montoGasto, this.porcentajeDelTotal, this.icono, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (ctx, constraints) {
       return Column(
         children: <Widget>[
-          // Texto del monto (opcional, oculto en screenshot pero útil)
           // Barra
           SizedBox(
             height: constraints.maxHeight * 0.70,
-            width: 30, // Ancho de la barra
+            width: 30,
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[
@@ -28,10 +27,10 @@ class ChartBar extends StatelessWidget {
                   ),
                 ),
                 FractionallySizedBox(
-                  heightFactor: spendingPctOfTotal,
+                  heightFactor: porcentajeDelTotal,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFF8B72BE), // Color morado de las barras
+                      color: const Color(0xFF8B72BE), // Color morado
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
@@ -44,7 +43,7 @@ class ChartBar extends StatelessWidget {
           SizedBox(
             height: constraints.maxHeight * 0.20,
             child: FittedBox(
-              child: Icon(icon, color: Colors.grey.shade700),
+              child: Icon(icono, color: Colors.grey.shade700),
             ),
           ),
         ],

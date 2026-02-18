@@ -1,17 +1,17 @@
-enum Category { comida, cine, viaje, trabajo }
+enum Categoria { comida, cine, viaje, trabajo }
 
-class Transaction {
+class Transaccion {
   final String id;
-  final String title;
-  final double amount;
-  final DateTime date;
-  final Category category;
+  final String titulo;
+  final double monto;
+  final DateTime fecha;
+  final Categoria categoria;
 
-  Transaction({
+  Transaccion({
     required this.id,
-    required this.title,
-    required this.amount,
-    required this.date,
-    required this.category,
+    required this.titulo,
+    required this.monto,
+    required this.fecha,
+    required this.categoria,
   });
 }

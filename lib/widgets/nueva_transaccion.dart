@@ -3,54 +3,52 @@ import 'package:intl/intl.dart';
 
 import '../models/transaccion.dart';
 
-class NewTransaction extends StatefulWidget {
-  final Function addTx;
+class NuevaTransaccion extends StatefulWidget {
+  final Function agregarTx;
 
-  const NewTransaction(this.addTx, {super.key});
+  const NuevaTransaccion(this.agregarTx, {super.key});
 
   @override
-  State<NewTransaction> createState() => _NewTransactionState();
+  State<NuevaTransaccion> createState() => _EstadoNuevaTransaccion();
 }
 
-class _NewTransactionState extends State<NewTransaction> {
-  final _titleController = TextEditingController();
-  final _amountController = TextEditingController();
-  DateTime? _selectedDate;
-  
-  // Para el dropdown
-  Category? _categoryValue; 
+class _EstadoNuevaTransaccion extends State<NuevaTransaccion> {
+  final _controladorTitulo = TextEditingController();
+  final _controladorMonto = TextEditingController();
+  DateTime? _fechaSeleccionada;
+  Categoria? _categoriaSeleccionada; 
 
-  void _submitData() {
-    if (_amountController.text.isEmpty) {
+  void _enviarDatos() {
+    if (_controladorMonto.text.isEmpty) {
       return;
     }
-    final enteredTitle = _titleController.text;
-    final enteredAmount = double.parse(_amountController.text);
+    final tituloIngresado = _controladorTitulo.text;
+    final montoIngresado = double.parse(_controladorMonto.text);
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null || _categoryValue == null) {
+    if (tituloIngresado.isEmpty || montoIngresado <= 0 || _fechaSeleccionada == null || _categoriaSeleccionada == null) {
       return;
     }
 
-    widget.addTx(
-      enteredTitle,
-      enteredAmount,
-      _selectedDate,
-      _categoryValue,
+    widget.agregarTx(
+      tituloIngresado,
+      montoIngresado,
+      _fechaSeleccionada,
+      _categoriaSeleccionada,
     );
 
-    Navigator.of(context).pop(); // Cierra el modal
+    Navigator.of(context).pop();
   }
 
-  void _presentDatePicker() {
+  void _mostrarSelectorFecha() {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2025),
       lastDate: DateTime.now(),
-    ).then((pickedDate) {
-      if (pickedDate == null) return;
+    ).then((fechaElegida) {
+      if (fechaElegida == null) return;
       setState(() {
-        _selectedDate = pickedDate;
+        _fechaSeleccionada = fechaElegida;
       });
     });
   }
@@ -71,8 +69,8 @@ class _NewTransactionState extends State<NewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
-                decoration: const InputDecoration(labelText: 'Titulo'),
-                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Título'),
+                controller: _controladorTitulo,
                 maxLength: 50,
               ),
               Row(
@@ -80,7 +78,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   Expanded(
                     child: TextField(
                       decoration: const InputDecoration(labelText: 'Cantidad'),
-                      controller: _amountController,
+                      controller: _controladorMonto,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -90,15 +88,15 @@ class _NewTransactionState extends State<NewTransaction> {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            _selectedDate == null
+                            _fechaSeleccionada == null
                                 ? 'Fecha No Elegida'
-                                : DateFormat.yMd().format(_selectedDate!),
+                                : DateFormat.yMd().format(_fechaSeleccionada!),
                                 textAlign: TextAlign.right,
                           ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.calendar_today),
-                          onPressed: _presentDatePicker,
+                          onPressed: _mostrarSelectorFecha,
                         )
                       ],
                     ),
@@ -109,20 +107,20 @@ class _NewTransactionState extends State<NewTransaction> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DropdownButton<Category>(
+                  DropdownButton<Categoria>(
                     hint: const Text('DIVIS'),
-                    value: _categoryValue,
+                    value: _categoriaSeleccionada,
                     icon: const Icon(Icons.arrow_drop_down),
-                    onChanged: (Category? newValue) {
+                    onChanged: (Categoria? nuevoValor) {
                       setState(() {
-                        _categoryValue = newValue!;
+                        _categoriaSeleccionada = nuevoValor!;
                       });
                     },
                     items: const [
-                      DropdownMenuItem(value: Category.comida, child: Text('COMIDA')),
-                      DropdownMenuItem(value: Category.viaje, child: Text('VIAJE')),
-                      DropdownMenuItem(value: Category.cine, child: Text('CINE')),
-                      DropdownMenuItem(value: Category.trabajo, child: Text('TRABAJO')),
+                      DropdownMenuItem(value: Categoria.comida, child: Text('COMIDA')),
+                      DropdownMenuItem(value: Categoria.viaje, child: Text('VIAJE')),
+                      DropdownMenuItem(value: Categoria.cine, child: Text('CINE')),
+                      DropdownMenuItem(value: Categoria.trabajo, child: Text('TRABAJO')),
                     ],
                   ),
                   Row(
@@ -137,7 +135,7 @@ class _NewTransactionState extends State<NewTransaction> {
                           foregroundColor: Colors.deepPurple,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         ),
-                        onPressed: _submitData,
+                        onPressed: _enviarDatos,
                         child: const Text('Guardar Gasto'),
                       ),
                     ],
@@ -151,4 +149,3 @@ class _NewTransactionState extends State<NewTransaction> {
     );
   }
 }
-//end
