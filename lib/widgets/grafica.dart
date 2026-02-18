@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './barra_grafica.dart';
+
 class Grafica extends StatelessWidget {
   final List<Map<String, Object>> transaccionesAgrupadas;
 
