@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './chart_bar.dart';
+import 'barra_grafica.dart';
 
 class Chart extends StatelessWidget {
   final List<Map<String, Object>> groupedTransactionValues;

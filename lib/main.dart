@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-// Importaciones de tus nuevos archivos
-import './models/transaction.dart';
-import './widgets/chart.dart';
-import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
+// Importaciones de tus nuevos archivos
+import 'models/transaccion.dart';
+import 'widgets/grafica.dart';
+import 'widgets/nueva_transaccion.dart';
 
 void main() {
   runApp(const MyApp());
