@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Importaciones de tus nuevos archivos
+import './models/transaction.dart';
+import './widgets/chart.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -7,115 +13,151 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Control Gastos',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.deepPurple,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        fontFamily: 'Quicksand',
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF2D0055),
+          foregroundColor: Colors.white,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // Datos iniciales
+  final List<Transaction> _userTransactions = [
+    Transaction(id: 't1', title: 'Curso Dart', amount: 199.90, date: DateTime(2026, 2, 10), category: Category.trabajo),
+    Transaction(id: 't2', title: 'Cine', amount: 200.00, date: DateTime(2026, 2, 10), category: Category.cine),
+    Transaction(id: 't3', title: 'Mi Viaje', amount: 234.00, date: DateTime(2026, 2, 3), category: Category.viaje),
+    Transaction(id: 't4', title: 'Buffet', amount: 258.00, date: DateTime(2026, 2, 5), category: Category.comida),
+    Transaction(id: 't5', title: 'Viaje Nuevo', amount: 10000.00, date: DateTime(2026, 2, 2), category: Category.viaje),
+    Transaction(id: 't6', title: 'Comida', amount: 7000.00, date: DateTime(2026, 2, 2), category: Category.comida),
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  List<Map<String, Object>> get _groupedTransactionValues {
+    return [
+      {'cat': Category.comida, 'icon': Icons.lunch_dining},
+      {'cat': Category.cine, 'icon': Icons.movie},
+      {'cat': Category.viaje, 'icon': Icons.flight_takeoff},
+      {'cat': Category.trabajo, 'icon': Icons.work},
+    ].map((data) {
+      final cat = data['cat'] as Category;
+      double totalSum = 0.0;
+
+      for (var i = 0; i < _userTransactions.length; i++) {
+        if (_userTransactions[i].category == cat) {
+          totalSum += _userTransactions[i].amount;
+        }
+      }
+
+      return {
+        'category': cat,
+        'amount': totalSum,
+        'icon': data['icon'] as IconData,
+      };
+    }).toList();
+  }
+
+  double get _totalSpending {
+    return _groupedTransactionValues.fold(0.0, (sum, item) {
+      return sum + (item['amount'] as double);
     });
+  }
+
+  void _addNewTransaction(String txTitle, double txAmount, DateTime chosenDate, Category chosenCategory) {
+    final newTx = Transaction(
+      title: txTitle,
+      amount: txAmount,
+      date: chosenDate,
+      category: chosenCategory,
+      id: DateTime.now().toString(),
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      isScrollControlled: true,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: NewTransaction(_addNewTransaction),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    
+    final appBar = AppBar(
+      title: const Text('Control Gastos Flutter'),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+
+    final txListWidget = SizedBox(
+      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+      child: TransactionList(_userTransactions)
+    );
+
+    final chartWidget = SizedBox(
+      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * (isLandscape ? 0.8 : 0.3),
+      child: Chart(_groupedTransactionValues, _totalSpending),
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      appBar: appBar,
+      body: SingleChildScrollView(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (isLandscape)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: chartWidget),
+                  Expanded(child: txListWidget),
+                ],
+              ),
+            if (!isLandscape) ...[
+              chartWidget,
+              txListWidget,
+            ],
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
         child: const Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
