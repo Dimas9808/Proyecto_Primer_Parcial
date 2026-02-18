@@ -1,35 +1,54 @@
 import 'package:flutter/material.dart';
 
-import './chart_bar.dart';
+class ChartBar extends StatelessWidget {
+  final double spendingAmount;
+  final double spendingPctOfTotal;
+  final IconData icon;
 
-class Chart extends StatelessWidget {
-  final List<Map<String, Object>> groupedTransactionValues;
-  final double totalSpending;
-
-  const Chart(this.groupedTransactionValues, this.totalSpending, {super.key});
+  const ChartBar(this.spendingAmount, this.spendingPctOfTotal, this.icon, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      margin: const EdgeInsets.all(20),
-      color: Colors.deepPurple.shade50,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
-            return Flexible(
-              fit: FlexFit.tight,
-              child: ChartBar(
-                (data['amount'] as double),
-                totalSpending == 0.0 ? 0.0 : (data['amount'] as double) / totalSpending,
-                data['icon'] as IconData,
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Column(
+        children: <Widget>[
+          // Texto del monto (opcional, oculto en screenshot pero útil)
+          // Barra
+          SizedBox(
+            height: constraints.maxHeight * 0.70,
+            width: 30, // Ancho de la barra
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1.0),
+                    color: const Color.fromRGBO(220, 220, 220, 1),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                FractionallySizedBox(
+                  heightFactor: spendingPctOfTotal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF8B72BE), // Color morado de las barras
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 4),
+          // Icono
+          SizedBox(
+            height: constraints.maxHeight * 0.20,
+            child: FittedBox(
+              child: Icon(icon, color: Colors.grey.shade700),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
