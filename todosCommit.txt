@@ -1,0 +1,155 @@
+commit 9d4706c19ebdc7217a87b9438465faf0600c698e
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 14:59:04 2026 -0600
+
+    correccion archivo grafica
+
+commit a0bbd2b1e30fe51c2d6ed716b88d40bd9a421af4
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 14:17:03 2026 -0600
+
+    Agregar funcion de eliminar
+
+commit 8de86a57b83e1fdae816e534dd04d28b5bafa34b
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 14:11:37 2026 -0600
+
+    correccion de errores varios
+
+commit d46e2655fc29a68b75321365ff219d2a1e1ec892
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:31:50 2026 -0600
+
+    Cambios en chart_bar
+
+commit e89519ab8648f8d8163ba4fbf2007fb5e9dd89ee
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:27:19 2026 -0600
+
+    Cambios en archivo pubspec
+
+commit b316f2e403f18f0179ad673eb8384a152ec6e1a7
+Merge: e798d2c f78f81a
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:21:50 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit f78f81abcccc8a3c367ef55f7c8a195d2a9cf402
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Wed Feb 18 09:16:40 2026 -0600
+
+    Subi chart_bar.dart
+
+commit e798d2c60dba8aa823a79665bcf46ba638bb0518
+Merge: 48b32ee 098560a
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:16:26 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit 48b32eec712c163bcf8d2e75353b5cb421f60009
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:15:49 2026 -0600
+
+    Creacion de archivos chart y chart_bar
+
+commit 098560a8f40c278d960b73d79029e5c21fc24048
+Merge: c9e779d 95e9e9d
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Wed Feb 18 09:15:03 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit c9e779d11ee66468286801e34ec96f67576e38ac
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Wed Feb 18 09:14:34 2026 -0600
+
+    Agregar chart.dart
+
+commit 95e9e9dab7fd12e4e8b31c3e3a7a87cd3b98b56d
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 18 09:10:17 2026 -0600
+
+    Cambios en archivo main
+
+commit 87867de78a3bb0df792f47b46ad5615d0919721f
+Author: Roberto <betobutaku@gmail.com>
+Date:   Tue Feb 17 19:02:23 2026 -0600
+
+    Funcionalidad de transaction
+
+commit 430f983005916d5aafb59e612f6d567e5b939432
+Author: Manuelangas65 <mangel2004xd@outlook.es>
+Date:   Fri Feb 13 18:57:42 2026 -0600
+
+    se creo la carpeta widgets y se completó el código para new_transactions
+
+commit 83e1b9ff92610588a4fdb84d6de3e2900908e370
+Merge: a5e06a0 f2d0f0f
+Author: Manuelangas65 <mangel2004xd@outlook.es>
+Date:   Fri Feb 13 18:56:39 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit a5e06a03e4a095b5dc862285f6c8cc44e7812654
+Author: Manuelangas65 <mangel2004xd@outlook.es>
+Date:   Fri Feb 13 18:55:51 2026 -0600
+
+    se creó la carpeta widgets y se se completó el código new_transaction
+
+commit f2d0f0f4d41e30aca8e2b18edcb8e440d2714c1b
+Merge: b6b66b1 7dfb366
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Fri Feb 13 08:11:51 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit b6b66b19ddd310a106379b88383a3c60bc93dba9
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Fri Feb 13 08:09:11 2026 -0600
+
+    Codigo de transaction_list
+
+commit 97aae6e9bf02cfc59f014b55b45296a77cfa3ff4
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Fri Feb 13 08:08:31 2026 -0600
+
+    Creacion de carpeta widgets y archivo transaction_list
+
+commit 7dfb36695edc690f955fb7b186efc2364397ff8f
+Merge: 0c06262 e9767df
+Author: Manuelangas65 <mangel2004xd@outlook.es>
+Date:   Thu Feb 12 13:21:09 2026 -0600
+
+    Merge branch 'main' of https://github.com/Dimas9808/Proyecto_Primer_Parcial
+
+commit e9767df28e10e62688cdfd735aedce16d09dff93
+Author: Zhephyr <Raulsalas703hotmsilcom@gmail.com>
+Date:   Thu Feb 12 13:20:28 2026 -0600
+
+    Creacion de Carpeta Transaction
+
+commit 0c062624bcacebbcd1d5fccbae53141086a9eae3
+Author: Manuelangas65 <mangel2004xd@outlook.es>
+Date:   Thu Feb 12 13:19:12 2026 -0600
+
+    hola, borre todo de prueba
+
+commit 5c87aa6bef7f960f04b332485ab165ec279fa954
+Author: Zhephyr <raulsalas703hotmsilcom@gmail.com>
+Date:   Thu Feb 12 13:09:24 2026 -0600
+
+    Delete lib/models
+
+commit a0f0313947529eb635a07d41eeabb8d2f2044385
+Author: Zhephyr <raulsalas703hotmsilcom@gmail.com>
+Date:   Thu Feb 12 13:07:17 2026 -0600
+
+    Create models
+
+commit bf3295cf2d703167e8c576b2a2f3f69abf819b52
+Author: Roberto <betobutaku@gmail.com>
+Date:   Wed Feb 11 13:18:04 2026 -0600
+
+    Proyecto
