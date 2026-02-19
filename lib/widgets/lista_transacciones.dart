@@ -55,7 +55,7 @@ class ListaTransacciones extends StatelessWidget {
                   // 2. Aquí está el botón de eliminar
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
-                    color: Theme.of(context).colorScheme.error, // Color rojo estándar
+                    color: Colors.red, // Color rojo estándar
                     onPressed: () => borrarTx(tx.id), // Llamamos a la función con el ID
                   ),
                 ),
